@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "522431764462",
+    "project_id": "chittychatty-f9dc4",
+    "storage_bucket": "chittychatty-f9dc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522431764462:android:8a41825b61446d227e20ff",
+        "android_client_info": {
+          "package_name": "com.khalidwar.chittychatty"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "522431764462-icbvkuhsf0qj3qqiqm2i9fk5ed56d5ff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.khalidwar.chittychatty",
+            "certificate_hash": "28a8a3681715bf10b9c2c5fbe8588f571875b1e2"
+          }
+        },
+        {
+          "client_id": "522431764462-p19m648t4e274stj2773per4vcjotevg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxh9CeBhukbiqJuvU746y7dMGA1z2k-Dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "522431764462-p19m648t4e274stj2773per4vcjotevg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
