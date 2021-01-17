@@ -1,11 +1,14 @@
 import 'package:chittychatty/screens/authentication/sign_up_screen.dart';
+import 'package:chittychatty/services/google_sign_in.dart';
 import 'package:chittychatty/state_management/auth_state_manager.dart';
 import 'package:chittychatty/utilities/form_validator.dart';
 import 'package:chittychatty/widgets/error_message_alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/all.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../constants.dart';
 
@@ -22,6 +25,9 @@ class SignInScreen extends ConsumerWidget {
     final setEmail = authStateProvider.setEmail;
     final setPassword = authStateProvider.setPassword;
     final signIn = authStateProvider.signIn;
+
+    final googleSignInManager = watch(googleSignInProvider);
+    final googleSignIn = googleSignInManager.signIn;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -47,6 +53,7 @@ class SignInScreen extends ConsumerWidget {
                     key: _formKey,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           'Sign In',
@@ -96,6 +103,21 @@ class SignInScreen extends ConsumerWidget {
                                         Theme.of(context).textTheme.headline5,
                                   ),
                           ),
+                        ),
+                        SizedBox(height: size.height * 0.01),
+                        OutlineButton.icon(
+                          borderSide: BorderSide(color: Colors.black),
+                          textColor: Colors.black,
+                          label: Text('Sign In'),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: size.width * 0.1,
+                            vertical: 10,
+                          ),
+                          icon: FaIcon(
+                            FontAwesomeIcons.google,
+                            color: Colors.red,
+                          ),
+                          onPressed: () => googleSignIn(),
                         ),
                         SizedBox(height: size.height * 0.02),
                         GestureDetector(
