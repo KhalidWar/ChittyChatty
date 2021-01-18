@@ -1,11 +1,13 @@
 import 'package:chittychatty/models/app_user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../constants.dart';
 import 'user_service.dart';
 
 class AuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final _firebaseAuth = FirebaseAuth.instance;
+  final _googleSignIn = GoogleSignIn();
 
   Stream<User> userStream() => _firebaseAuth.authStateChanges();
 
@@ -39,5 +41,31 @@ class AuthService {
     }
   }
 
-  Future<void> signOut() async => await _firebaseAuth.signOut();
+  Future googleSignIn() async {
+    try {
+      final googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        return null;
+      } else {
+        final googleAuth = await googleUser.authentication;
+
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await _firebaseAuth.signInWithCredential(credential);
+      }
+    } catch (e) {
+      return e.message;
+    }
+  }
+
+  Future signOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      await _googleSignIn.signOut();
+    } catch (e) {
+      return e.message;
+    }
+  }
 }

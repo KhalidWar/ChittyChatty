@@ -1,5 +1,4 @@
 import 'package:chittychatty/screens/authentication/sign_up_screen.dart';
-import 'package:chittychatty/services/google_sign_in.dart';
 import 'package:chittychatty/state_management/auth_state_manager.dart';
 import 'package:chittychatty/utilities/form_validator.dart';
 import 'package:chittychatty/widgets/error_message_alert.dart';
@@ -25,9 +24,7 @@ class SignInScreen extends ConsumerWidget {
     final setEmail = authStateProvider.setEmail;
     final setPassword = authStateProvider.setPassword;
     final signIn = authStateProvider.signIn;
-
-    final googleSignInManager = watch(googleSignInProvider);
-    final googleSignIn = googleSignInManager.signIn;
+    final googleSignIn = authStateProvider.googleSignIn;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
@@ -117,7 +114,7 @@ class SignInScreen extends ConsumerWidget {
                             FontAwesomeIcons.google,
                             color: Colors.red,
                           ),
-                          onPressed: () => googleSignIn(),
+                          onPressed: () => googleSignIn(context),
                         ),
                         SizedBox(height: size.height * 0.02),
                         GestureDetector(

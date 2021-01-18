@@ -38,11 +38,11 @@ class AuthStateManager extends ChangeNotifier {
     notifyListeners();
   }
 
-  void signIn(BuildContext context, GlobalKey<FormState> formKey) async {
+  void signIn(BuildContext context, GlobalKey<FormState> formKey) {
     _setError(null);
     if (formKey.currentState.validate()) {
       _setIsLoading(true);
-      await context
+      context
           .read(authServiceProvider)
           .signInWithEmailAndPassword(_email, _password)
           .then((value) {
@@ -52,12 +52,20 @@ class AuthStateManager extends ChangeNotifier {
     }
   }
 
-  void signUp(BuildContext context, GlobalKey<FormState> formKey) async {
+  void googleSignIn(BuildContext context) {
+    _setIsLoading(true);
+    context.read(authServiceProvider).googleSignIn().then((value) {
+      _setIsLoading(false);
+      _setError(value);
+    }).catchError((error, stackTrace) => _setError(error));
+  }
+
+  void signUp(BuildContext context, GlobalKey<FormState> formKey) {
     //todo fix app is stuck on loading after successful sign up
     _setError(null);
     if (formKey.currentState.validate()) {
       _setIsLoading(true);
-      await context
+      context
           .read(authServiceProvider)
           .signUpWithEmailAndPassword(_name, _email, _password)
           .then((value) {
